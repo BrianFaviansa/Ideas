@@ -8,11 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class Idea extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'content',
         'likes',
     ];
 
+    // protected $guarded = [
+    //     'id',
+    //     'created_at',
+    //     'updated_at'
+    // ];
+    
     public function comments() {
         return $this->hasMany(Comment::class);
     }
