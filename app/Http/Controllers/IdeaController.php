@@ -42,7 +42,7 @@ class IdeaController extends Controller
         if(auth()->id() !== $idea->user_id) {
             abort(404);
         }
-        
+
         $editing = true;
         return view('ideas.show', compact('idea', 'editing'));
     }
