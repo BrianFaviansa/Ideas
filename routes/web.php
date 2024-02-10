@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FollowerController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\IdeaController;
@@ -20,7 +21,7 @@ use App\Http\Controllers\UserController;
 
 Route::get('/terms', function () {
     return view('terms');
-});
+})->name('terms');
 
 Route::get('', [DashboardController::class, 'index'])->name('dashboard');
 
@@ -34,3 +35,5 @@ Route::resource('users', UserController::class)->only(['show', 'edit', 'update']
 
 Route::get('profile', [UserController::class,'profile'])->name('profile')->middleware('auth');
 
+Route::post('users/{user}/follow', [FollowerController::class, 'follow'])->middleware('auth')->name('users.follow');
+Route::post('users/{user}/unfollow', [FollowerController::class, 'unfollow'])->middleware('auth')->name('users.unfollow');
