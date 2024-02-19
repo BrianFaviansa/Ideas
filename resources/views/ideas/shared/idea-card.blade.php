@@ -10,20 +10,19 @@
                         </a></h5>
                 </div>
             </div>
-            @auth
-                <div>
-                    <form method="POST" action="{{ route('ideas.destroy', $idea->id) }}">
-                        @csrf
-                        @method('delete')
-                        <a class="mx-2" href="{{ route('ideas.show', $idea->id) }}">View</a>
-                        <a href="{{ route('ideas.edit', $idea->id) }}">Edit</a>
-                        <button class="btn btn-danger btn-sm ms-2">X</button>
-                    </form>
-                </div>
-            @endauth
-            @guest
-                <a class="mx-2" href="{{ route('ideas.show', $idea->id) }}">View</a>
-            @endguest
+            <div class="d-flex">
+                <a href="{{ route('ideas.show', $idea->id) }}">View</a>
+                @auth
+                    @can('update', $idea)
+                        <a class="mx-2" href="{{ route('ideas.edit', $idea->id) }}">Edit</a>
+                        <form method="POST" action="{{ route('ideas.destroy', $idea->id) }}">
+                            @csrf
+                            @method('delete')
+                            <button class="btn btn-danger btn-sm ms-2">X</button>
+                        </form>
+                    @endcan
+                @endauth
+            </div>
         </div>
     </div>
     <div class="card-body">

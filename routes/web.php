@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\FollowerController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IdeaController;
@@ -45,4 +46,7 @@ Route::post('ideas/{idea}/like', [IdeaLikeController::class, 'like'])->middlewar
 Route::post('ideas/{idea}/unlike', [IdeaLikeController::class, 'unlike'])->middleware('auth')->name('ideas.unlike');
 
 Route::get('/feed', FeedController::class)->middleware('auth')->name('feed');
+
+Route::get('/admin', [AdminDashboardController::class, 'index'])->middleware(['auth', 'can:admin'])->name('admin.dashboard');
+
 
